@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+
+<head>
+    <title>mPlayer</title>
+    <meta name="viewport" content="width=device-width">
+    <script type="text/javascript">
+        /*--获取网页传递的参数--*/
+        function getParas(paras) {
+            var url = location.href;
+            var paramStr = url.substring(url.indexOf('?') + 1, url.length).split('&');
+            var j;
+            var paramObj = {};
+            for (var i = 0; j = paramStr[i]; i++) {
+                paramObj[j.substring(0, j.indexOf('=')).toLowerCase()] = j.substring(j.indexOf('=') + 1, j.length);
+            }
+            var returnValue = paramObj[paras.toLowerCase()];
+            if (typeof (returnValue) == "undefined") {
+                return "";
+            } else {
+                return returnValue;
+            }
+        }
+        window.onload = function () {
+            var url = getParas("url");
+            var mute = getParas("mute");
+            var width = getParas("width");
+            var height = getParas("height");
+            var menu = getParas("menu");
+            var volume = getParas("volume");
+            var uiMode = getParas("uimode");
+            var rate = getParas("rate");
+            if (width > 0) {
+                document.getElementById("mPlayer").style.width = width
+            } else {
+                document.getElementById("mPlayer").style.width = window.innerWidth - 16
+            }
+            if (height > 0) {
+                document.getElementById("mPlayer").style.height = height
+            } else {
+                document.getElementById("mPlayer").style.height = window.innerHeight - 16
+            }
+            if (menu == "0" || menu == "false") {
+                mPlayer.settings.enableContextMenu = "0"
+            }
+            if (mute == "1" || mute == "true") {
+                mPlayer.settings.mute = "1"
+            }
+            if (volume != "") {
+                mPlayer.settings.volume = volume
+            }
+            if (uiMode != "") {
+                mPlayer.settings.uiMode = uiMode
+            }
+            if (rate != "" && rate != "1") {
+                mPlayer.settings.rate = rate
+            }
+            if (url != "") {
+                mPlayer.URL = url
+                mPlayer.controls.play();
+            }
+        }
+    </script>
+</head>
+
+<body scroll="no">
+    <!--播放器 开始-->
+    <object id="mPlayer" style="width: 720px; height: 405px" type="application/x-oleobject"
+        classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6">
+        <param name="URL" value="" />
+        <param name="rate" value="1" />
+        <param name="AutoSize" value="1" />
+        <param name="balance" value="0" />
+        <param name="currentPosition" value="0" />
+        <param name="defaultFrame" value="" />
+        <param name="playCount" value="1" />
+        <param name="autoStart" value="-1" />
+        <param name="currentMarker" value="0" />
+        <param name="invokeURLs" value="-1" />
+        <param name="baseURL" value="" />
+        <param name="volume" value="50" />
+        <param name="mute" value="0" />
+        <param name="uiMode" value="full" />
+        <param name="stretchToFit" value="-1" />
+        <param name="windowlessVideo" value="0" />
+        <param name="enabled" value="-1" />
+        <param name="enableContextMenu" value="1" />
+        <param name="fullScreen" value="0" />
+        <param name="SAMIStyle" value="" />
+        <param name="SAMILang" value="" />
+        <param name="SAMIFilename" value="" />
+        <param name="captioningID" value="" />
+        <param name="enableErrorDialogs" value="0" />
+        <param name="_cx" value="7223" />
+        <param name="_cy" value="1693" />
+    </object>
+    <!--播放器 结束-->
+</body>
+
+</html>
